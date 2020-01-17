@@ -14,9 +14,6 @@
     <list default="true" id="56071fb5-8a3d-4aa7-afa0-c78b80be1d04" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/library/src/main/java/com/moos/library/CircleProgressBar.java" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/java/com/moos/library/CircleProgressBar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/library/src/main/res/values/colors.xml" beforeDir="false" afterPath="$PROJECT_DIR$/library/src/main/res/values/colors.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample/src/main/java/com/moos/progress/activity/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/sample/src/main/java/com/moos/progress/activity/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/sample/src/main/res/layout/activity_main.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

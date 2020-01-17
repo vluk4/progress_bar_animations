@@ -49,6 +49,9 @@ public class CircleProgressBar extends View {
 
     private static final String TAG = "Moos-Progress-View";
 
+    int originalStartColor;
+    int originalEndColor;
+
     /**
      * properties needed
      */
@@ -231,8 +234,8 @@ public class CircleProgressBar extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-
         drawTrack(canvas);
+
 
         //mShader = new LinearGradient(mOval.left,mOval.top,mOval.right,mOval.bottom,mStartColor,mEndColor, Shader.TileMode.CLAMP);
         progressPaint.setShader(mShader);
@@ -451,6 +454,10 @@ public class CircleProgressBar extends View {
 
     public void setRangeAndAnimate(float start, float end){
         if(start > end){
+//            originalStartColor = mStartColor;
+//            originalEndColor = mStartColor;
+//            setEndColor(mTrackColor);
+//            setStartColor(mTrackColor);
             setStartProgress(start);
             setEndProgress(end);
             startProgressAnimation();
@@ -644,7 +651,6 @@ public class CircleProgressBar extends View {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                setProgress(mEndProgress);
                 if(updateListener != null){
                     updateListener.onCircleProgressFinished(CircleProgressBar.this);
                 }
@@ -691,7 +697,10 @@ public class CircleProgressBar extends View {
                 if(updateListener != null){
                     updateListener.onCircleProgressFinished(CircleProgressBar.this);
                 }
-
+                setProgress(mEndProgress);
+                setEndColor(originalEndColor);
+                setStartColor(originalStartColor);
+                updateTheTrack();
             }
 
             @Override

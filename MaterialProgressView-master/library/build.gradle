@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+
 android {
     compileSdkVersion 29
 
@@ -24,16 +25,4 @@ dependencies {
     implementation 'androidx.annotation:annotation:1.0.0'
 
     testCompile 'junit:junit:4.12'
-}
-
-apply plugin: 'com.novoda.bintray-release'
-
-
-publish {
-    userOrg = 'moosphon'
-    groupId = 'com.moos'
-    artifactId = 'Material-ProgressView'
-    publishVersion = '2.0.0'
-    desc = 'This is a pretty and simple used library for progress views on android'
-    website = 'https://github.com/Moosphan/Material-ProgressView'
 }

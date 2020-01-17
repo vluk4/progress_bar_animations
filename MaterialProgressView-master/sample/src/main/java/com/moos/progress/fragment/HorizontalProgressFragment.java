@@ -1,14 +1,11 @@
 package com.moos.progress.fragment;
 
 
-import android.animation.ObjectAnimator;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatSeekBar;
-import android.support.v7.widget.SwitchCompat;
-import android.util.DisplayMetrics;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.AppCompatSeekBar;
+import androidx.appcompat.widget.SwitchCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,13 +13,11 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.moos.library.CircleProgressView;
-import com.moos.library.HorizontalProgressView;
+import com.moos.library.HorizontalProgressBar;
 import com.moos.progress.R;
 import com.moos.progress.utils.DownloadUtil;
 
@@ -35,12 +30,12 @@ import static android.content.ContentValues.TAG;
  * 2. redesign the UI
  * 3. support more text align ways(like center_vertical)
  */
-public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, HorizontalProgressView.HorizontalProgressUpdateListener {
+public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, HorizontalProgressBar.HorizontalProgressUpdateListener {
 
 
     private AppCompatSeekBar hsb_track_width, hsb_start_progress, hsb_end_progress, hsb_text_size, hsb_corner_radius ;
     private SwitchCompat hsc_trackEnabled, hsc_text_visibility;
-    private HorizontalProgressView horizontalProgressView;
+    private HorizontalProgressBar horizontalProgressBar;
     private Button btn_start;
     private ImageView btn_download;
     private TextView textView_call_back, bubble_progress;
@@ -64,7 +59,7 @@ public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSe
         hsb_corner_radius = (AppCompatSeekBar) view.findViewById(R.id.hsb_corner_radius);
         hsc_trackEnabled = (SwitchCompat) view.findViewById(R.id.hsc_isTracked);
         hsc_text_visibility = (SwitchCompat) view.findViewById(R.id.hsc_text_visibility);
-        horizontalProgressView = (HorizontalProgressView) view.findViewById(R.id.progressView_horizontal);
+        horizontalProgressBar = (HorizontalProgressBar) view.findViewById(R.id.progressView_horizontal);
         btn_start = (Button) view.findViewById(R.id.hb_start);
         textView_call_back = (TextView) view.findViewById(R.id.cb_progress_call_back);
         bubble_progress = (TextView) view.findViewById(R.id.progress_bubble_text);
@@ -79,7 +74,7 @@ public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSe
         hsc_text_visibility.setOnCheckedChangeListener(this);
         btn_start.setOnClickListener(this);
         btn_download.setOnClickListener(this);
-        horizontalProgressView.setProgressViewUpdateListener(this);
+        horizontalProgressBar.setProgressViewUpdateListener(this);
 
         
         return view;
@@ -90,23 +85,23 @@ public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSe
         Log.e(TAG, "onProgressChanged: "+progress );
         switch (seekBar.getId()){
             case R.id.hsb_start_progress:
-                horizontalProgressView.setStartProgress(progress);
+                horizontalProgressBar.setStartProgress(progress);
                 break;
 
             case R.id.hsb_end_progress:
-                horizontalProgressView.setEndProgress(progress);
+                horizontalProgressBar.setEndProgress(progress);
                 break;
 
             case R.id.hsb_track_width:
-                horizontalProgressView.setTrackWidth((int)(progress*0.5));
+                horizontalProgressBar.setTrackWidth((int)(progress*0.5));
                 break;
 
             case R.id.hsb_text_size:
-                horizontalProgressView.setProgressTextSize((int)(progress*0.3));
+                horizontalProgressBar.setProgressTextSize((int)(progress*0.3));
                 break;
 
             case R.id.hsb_corner_radius:
-                horizontalProgressView.setProgressCornerRadius((int)(progress*0.5));
+                horizontalProgressBar.setProgressCornerRadius((int)(progress*0.5));
                 break;
         }
 
@@ -127,17 +122,17 @@ public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSe
         switch (buttonView.getId()){
             case R.id.hsc_isTracked:
                 if(isChecked){
-                    horizontalProgressView.setTrackEnabled(true);
+                    horizontalProgressBar.setTrackEnabled(true);
                 }else {
-                    horizontalProgressView.setTrackEnabled(false);
+                    horizontalProgressBar.setTrackEnabled(false);
                 }
                 break;
 
             case R.id.hsc_text_visibility:
                 if(isChecked){
-                    horizontalProgressView.setProgressTextVisibility(true);
+                    horizontalProgressBar.setProgressTextVisibility(true);
                 }else {
-                    horizontalProgressView.setProgressTextVisibility(false);
+                    horizontalProgressBar.setProgressTextVisibility(false);
                 }
                 break;
         }
@@ -146,7 +141,7 @@ public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSe
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.hb_start){
-            horizontalProgressView.startProgressAnimation();
+            horizontalProgressBar.startProgressAnimation();
         }else if(v.getId() == R.id.hb_download){
             downloadTheFile();
         }
@@ -180,7 +175,7 @@ public class HorizontalProgressFragment extends Fragment implements SeekBar.OnSe
 
             @Override
             public void onDownloading(float progress) {
-                horizontalProgressView.setProgress(progress);
+                horizontalProgressBar.setProgress(progress);
             }
 
             @Override

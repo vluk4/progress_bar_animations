@@ -3,28 +3,27 @@ package com.moos.progress.fragment;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatSeekBar;
-import android.support.v7.widget.SwitchCompat;
+import androidx.fragment.app.Fragment;
+import androidx.appcompat.widget.AppCompatSeekBar;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
-import com.moos.library.CircleProgressView;
+import com.moos.library.CircleProgressBar;
 import com.moos.progress.R;
 
 /**
  * A sample of CircleProgressView.
  */
-public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, CircleProgressView.CircleProgressUpdateListener {
+public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBarChangeListener, CompoundButton.OnCheckedChangeListener, View.OnClickListener, CircleProgressBar.CircleProgressUpdateListener {
 
     private AppCompatSeekBar csb_track_width, csb_start_progress, csb_end_progress, csb_text_size;
     private SwitchCompat csc_trackEnabled, csc_fillEnabled, csc_circleBroken, csc_isGraduated;
-    private CircleProgressView circleProgressView;
+    private CircleProgressBar circleProgressBar;
     private Button btn_start;
 
     public CircleProgressFragment() {
@@ -50,7 +49,7 @@ public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBa
         csc_fillEnabled = (SwitchCompat) view.findViewById(R.id.csc_isFilled);
         csc_circleBroken = (SwitchCompat) view.findViewById(R.id.csc_circleBroken);
         csc_isGraduated = (SwitchCompat) view.findViewById(R.id.csc_isGraduated);
-        circleProgressView = (CircleProgressView) view.findViewById(R.id.progressView_circle);
+        circleProgressBar = (CircleProgressBar) view.findViewById(R.id.progressView_circle);
         btn_start = (Button) view.findViewById(R.id.cb_start);
         csb_track_width.setOnSeekBarChangeListener(this);
         csb_start_progress.setOnSeekBarChangeListener(this);
@@ -61,28 +60,28 @@ public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBa
         csc_fillEnabled.setOnCheckedChangeListener(this);
         csc_isGraduated.setOnCheckedChangeListener(this);
         btn_start.setOnClickListener(this);
-        circleProgressView.setProgressViewUpdateListener(this);
-        circleProgressView.setStartColor(Color.parseColor("#ee0000"));
-        circleProgressView.setGraduatedEnabled(true);
+        circleProgressBar.setProgressViewUpdateListener(this);
+        circleProgressBar.setStartColor(Color.parseColor("#ee0000"));
+        circleProgressBar.setGraduatedEnabled(true);
     }
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         switch (seekBar.getId()){
             case R.id.csb_track_width:
-                circleProgressView.setTrackWidth(progress);
+                circleProgressBar.setTrackWidth(progress);
                 break;
 
             case R.id.csb_start_progress:
-                circleProgressView.setStartProgress(progress);
+                circleProgressBar.setStartProgress(progress);
                 break;
 
             case R.id.csb_end_progress:
-                circleProgressView.setEndProgress(progress);
+                circleProgressBar.setEndProgress(progress);
                 break;
 
             case R.id.csb_text_size:
-                circleProgressView.setProgressTextSize((int) (progress*0.5));
+                circleProgressBar.setProgressTextSize((int) (progress*0.5));
                 break;
         }
 
@@ -104,34 +103,34 @@ public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBa
         switch (buttonView.getId()){
             case R.id.csc_isTracked:
                 if (isChecked){
-                    circleProgressView.setTrackEnabled(true);
+                    circleProgressBar.setTrackEnabled(true);
                 }else {
-                    circleProgressView.setTrackEnabled(false);
+                    circleProgressBar.setTrackEnabled(false);
                 }
 
                 break;
 
             case R.id.csc_circleBroken:
                 if (isChecked){
-                    circleProgressView.setCircleBroken(true);
+                    circleProgressBar.setCircleBroken(true);
                 }else {
-                    circleProgressView.setCircleBroken(false);
+                    circleProgressBar.setCircleBroken(false);
                 }
                 break;
 
             case R.id.csc_isFilled:
                 if (isChecked){
-                    circleProgressView.setFillEnabled(true);
+                    circleProgressBar.setFillEnabled(true);
                 }else {
-                    circleProgressView.setFillEnabled(false);
+                    circleProgressBar.setFillEnabled(false);
                 }
                 break;
 
             case R.id.csc_isGraduated:
                 if (isChecked){
-                    circleProgressView.setGraduatedEnabled(true);
+                    circleProgressBar.setGraduatedEnabled(true);
                 }else {
-                    circleProgressView.setGraduatedEnabled(false);
+                    circleProgressBar.setGraduatedEnabled(false);
                 }
                 break;
         }
@@ -140,7 +139,7 @@ public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBa
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.cb_start){
-            circleProgressView.startProgressAnimation();
+            circleProgressBar.startProgressAnimation();
         }
     }
 

@@ -21,7 +21,7 @@
         <enum name="OvershootInterpolator" value="4"/>
     </attr>
     <!--CircleStyle-->
-    <declare-styleable name="CircleProgressView">
+    <declare-styleable name="CircleProgressBar">
 
         <attr name="track_width"/>
         <attr name="start_progress"/>
@@ -41,7 +41,7 @@
     </declare-styleable>
 
     <!--HorizontalStyle-->
-    <declare-styleable name="HorizontalProgressView">
+    <declare-styleable name="HorizontalProgressBar">
         <attr name="track_width"/>
         <attr name="start_progress"/>
         <attr name="end_progress"/>

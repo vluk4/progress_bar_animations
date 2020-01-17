@@ -13,9 +13,9 @@ import android.graphics.PathDashPathEffect;
 import android.graphics.PathEffect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -31,7 +31,7 @@ import android.view.animation.OvershootInterpolator;
  * Material progress view in 'circle' style
  */
 
-public class CircleProgressView extends View {
+public class CircleProgressBar extends View {
 
     @IntDef({ACCELERATE_DECELERATE_INTERPOLATOR, LINEAR_INTERPOLATOR, ACCELERATE_INTERPOLATOR, DECELERATE_INTERPOLATOR, OVERSHOOT_INTERPOLATOR })
     private @interface AnimateType{
@@ -167,21 +167,21 @@ public class CircleProgressView extends View {
     PathEffect pathEffect;
 
 
-    public CircleProgressView(Context context) {
+    public CircleProgressBar(Context context) {
         super(context);
         this.mContext = context;
         obtainAttrs(context,null);
         init();
     }
 
-    public CircleProgressView(Context context, @Nullable AttributeSet attrs) {
+    public CircleProgressBar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         obtainAttrs(context,attrs);
         init();
     }
 
-    public CircleProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public CircleProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         obtainAttrs(context,attrs);
@@ -189,27 +189,27 @@ public class CircleProgressView extends View {
     }
 
     private void obtainAttrs(Context context, AttributeSet attrs){
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.CircleProgressBar);
 
-        mStartProgress = typedArray.getInt(R.styleable.CircleProgressView_start_progress,0);
-        mEndProgress = typedArray.getInt(R.styleable.CircleProgressView_end_progress,60);
-        mStartColor = typedArray.getColor(R.styleable.CircleProgressView_start_color, getResources().getColor(R.color.light_orange));
-        mEndColor = typedArray.getColor(R.styleable.CircleProgressView_end_color,getResources().getColor(R.color.dark_orange));
-        fillEnabled = typedArray.getBoolean(R.styleable.CircleProgressView_isFilled, false);
-        trackEnabled = typedArray.getBoolean(R.styleable.CircleProgressView_isTracked, false);
-        circleBroken = typedArray.getBoolean(R.styleable.CircleProgressView_circleBroken, true);
-        mProgressTextColor = typedArray.getColor(R.styleable.CircleProgressView_progressTextColor,getResources().getColor(R.color.colorAccent));
-        mProgressTextSize = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_progressTextSize,getResources().getDimensionPixelSize(R.dimen.default_progress_text_size));
-        mTrackWidth = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_track_width, getResources().getDimensionPixelSize(R.dimen.default_trace_width));
-        mAnimateType = typedArray.getInt(R.styleable.CircleProgressView_animateType, ACCELERATE_DECELERATE_INTERPOLATOR);
-        mTrackColor = typedArray.getColor(R.styleable.CircleProgressView_trackColor, getResources().getColor(R.color.default_track_color));
-        textVisibility = typedArray.getBoolean(R.styleable.CircleProgressView_progressTextVisibility, true);
-        mProgressDuration = typedArray.getInt(R.styleable.CircleProgressView_progressDuration, 1200);
-        mScaleZoneLength = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_scaleZone_length, getResources().getDimensionPixelSize(R.dimen.default_zone_length));
-        mScaleZoneWidth = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_scaleZone_width, getResources().getDimensionPixelSize(R.dimen.default_zone_width));
-        mScaleZonePadding = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_scaleZone_padding, getResources().getDimensionPixelSize(R.dimen.default_zone_padding));
-        mScaleZoneCornerRadius = typedArray.getDimensionPixelSize(R.styleable.CircleProgressView_scaleZone_corner_radius, getResources().getDimensionPixelSize(R.dimen.default_zone_corner_radius));
-        isGraduated = typedArray.getBoolean(R.styleable.CircleProgressView_isGraduated, false);
+        mStartProgress = typedArray.getInt(R.styleable.CircleProgressBar_start_progress,0);
+        mEndProgress = typedArray.getInt(R.styleable.CircleProgressBar_end_progress,60);
+        mStartColor = typedArray.getColor(R.styleable.CircleProgressBar_start_color, getResources().getColor(R.color.light_orange));
+        mEndColor = typedArray.getColor(R.styleable.CircleProgressBar_end_color,getResources().getColor(R.color.dark_orange));
+        fillEnabled = typedArray.getBoolean(R.styleable.CircleProgressBar_isFilled, false);
+        trackEnabled = typedArray.getBoolean(R.styleable.CircleProgressBar_isTracked, false);
+        circleBroken = typedArray.getBoolean(R.styleable.CircleProgressBar_circleBroken, true);
+        mProgressTextColor = typedArray.getColor(R.styleable.CircleProgressBar_progressTextColor,getResources().getColor(R.color.colorAccent));
+        mProgressTextSize = typedArray.getDimensionPixelSize(R.styleable.CircleProgressBar_progressTextSize,getResources().getDimensionPixelSize(R.dimen.default_progress_text_size));
+        mTrackWidth = typedArray.getDimensionPixelSize(R.styleable.CircleProgressBar_track_width, getResources().getDimensionPixelSize(R.dimen.default_trace_width));
+        mAnimateType = typedArray.getInt(R.styleable.CircleProgressBar_animateType, ACCELERATE_DECELERATE_INTERPOLATOR);
+        mTrackColor = typedArray.getColor(R.styleable.CircleProgressBar_trackColor, getResources().getColor(R.color.default_track_color));
+        textVisibility = typedArray.getBoolean(R.styleable.CircleProgressBar_progressTextVisibility, true);
+        mProgressDuration = typedArray.getInt(R.styleable.CircleProgressBar_progressDuration, 1200);
+        mScaleZoneLength = typedArray.getDimensionPixelSize(R.styleable.CircleProgressBar_scaleZone_length, getResources().getDimensionPixelSize(R.dimen.default_zone_length));
+        mScaleZoneWidth = typedArray.getDimensionPixelSize(R.styleable.CircleProgressBar_scaleZone_width, getResources().getDimensionPixelSize(R.dimen.default_zone_width));
+        mScaleZonePadding = typedArray.getDimensionPixelSize(R.styleable.CircleProgressBar_scaleZone_padding, getResources().getDimensionPixelSize(R.dimen.default_zone_padding));
+        mScaleZoneCornerRadius = typedArray.getDimensionPixelSize(R.styleable.CircleProgressBar_scaleZone_corner_radius, getResources().getDimensionPixelSize(R.dimen.default_zone_corner_radius));
+        isGraduated = typedArray.getBoolean(R.styleable.CircleProgressBar_isGraduated, false);
         moveProgress = mStartProgress;
 
         typedArray.recycle();
@@ -419,6 +419,10 @@ public class CircleProgressView extends View {
         refreshTheView();
     }
 
+    public void decreaseProgress(float progress){
+
+    }
+
     public float getProgress(){
         return this.moveProgress;
     }
@@ -616,7 +620,7 @@ public class CircleProgressView extends View {
             public void onAnimationUpdate(ValueAnimator animation) {
                 float progress = (float) animation.getAnimatedValue("progress");
                 if(updateListener != null){
-                    updateListener.onCircleProgressUpdate(CircleProgressView.this, progress);
+                    updateListener.onCircleProgressUpdate(CircleProgressBar.this, progress);
                 }
 
             }
@@ -625,14 +629,14 @@ public class CircleProgressView extends View {
             @Override
             public void onAnimationStart(Animator animator) {
                 if(updateListener != null){
-                    updateListener.onCircleProgressStart(CircleProgressView.this);
+                    updateListener.onCircleProgressStart(CircleProgressBar.this);
                 }
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
                 if(updateListener != null){
-                    updateListener.onCircleProgressFinished(CircleProgressView.this);
+                    updateListener.onCircleProgressFinished(CircleProgressBar.this);
                 }
             }
 

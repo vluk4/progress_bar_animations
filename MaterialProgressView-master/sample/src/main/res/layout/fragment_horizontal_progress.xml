@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text="36%"/>
 
-    <com.moos.library.HorizontalProgressView
+    <com.moos.library.HorizontalProgressBar
         android:id="@+id/progressView_horizontal"
         android:layout_width="320dp"
         android:layout_height="90dp"
@@ -51,7 +51,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="track width："/>
-                <android.support.v7.widget.AppCompatSeekBar
+                <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/hsb_track_width"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -73,7 +73,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="start progress："/>
-                <android.support.v7.widget.AppCompatSeekBar
+                <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/hsb_start_progress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -95,7 +95,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="end progress："/>
-                <android.support.v7.widget.AppCompatSeekBar
+                <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/hsb_end_progress"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="text size："/>
-                <android.support.v7.widget.AppCompatSeekBar
+                <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/hsb_text_size"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="corner radius："/>
-                <android.support.v7.widget.AppCompatSeekBar
+                <androidx.appcompat.widget.AppCompatSeekBar
                     android:id="@+id/hsb_corner_radius"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -161,7 +161,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="trackEnabled："/>
-                <android.support.v7.widget.SwitchCompat
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/hsc_isTracked"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -181,7 +181,7 @@
                     android:textSize="16sp"
                     android:layout_marginLeft="12dp"
                     android:text="textVisibility："/>
-                <android.support.v7.widget.SwitchCompat
+                <androidx.appcompat.widget.SwitchCompat
                     android:id="@+id/hsc_text_visibility"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

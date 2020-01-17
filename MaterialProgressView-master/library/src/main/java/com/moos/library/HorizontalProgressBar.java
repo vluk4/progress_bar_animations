@@ -8,14 +8,11 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.LinearGradient;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PathDashPathEffect;
-import android.graphics.PathEffect;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.support.annotation.ColorInt;
-import android.support.annotation.IntDef;
-import android.support.annotation.Nullable;
+import androidx.annotation.ColorInt;
+import androidx.annotation.IntDef;
+import androidx.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -25,14 +22,13 @@ import android.view.animation.DecelerateInterpolator;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.OvershootInterpolator;
-import android.widget.ListView;
 
 /**
  * Created by moos on 2018/3/19.
  * Material progress view in 'Horizontal' style
  */
 
-public class HorizontalProgressView extends View {
+public class HorizontalProgressBar extends View {
     @IntDef({ACCELERATE_DECELERATE_INTERPOLATOR, LINEAR_INTERPOLATOR, ACCELERATE_INTERPOLATOR, DECELERATE_INTERPOLATOR, OVERSHOOT_INTERPOLATOR })
     private @interface AnimateType{
 
@@ -142,21 +138,21 @@ public class HorizontalProgressView extends View {
 
 
 
-    public HorizontalProgressView(Context context) {
+    public HorizontalProgressBar(Context context) {
         super(context);
         this.mContext = context;
         obtainAttrs(context,null);
         init();
     }
 
-    public HorizontalProgressView(Context context, @Nullable AttributeSet attrs) {
+    public HorizontalProgressBar(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
         obtainAttrs(context,attrs);
         init();
     }
 
-    public HorizontalProgressView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public HorizontalProgressBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         obtainAttrs(context,attrs);
@@ -164,23 +160,23 @@ public class HorizontalProgressView extends View {
     }
 
     private void obtainAttrs(Context context, AttributeSet attrs){
-        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalProgressView);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.HorizontalProgressBar);
 
-        mStartProgress = typedArray.getInt(R.styleable.HorizontalProgressView_start_progress,0);
-        mEndProgress = typedArray.getInt(R.styleable.HorizontalProgressView_end_progress,60);
-        mStartColor = typedArray.getColor(R.styleable.HorizontalProgressView_start_color, getResources().getColor(R.color.light_orange));
-        mEndColor = typedArray.getColor(R.styleable.HorizontalProgressView_end_color,getResources().getColor(R.color.dark_orange));
-        trackEnabled = typedArray.getBoolean(R.styleable.HorizontalProgressView_isTracked, false);
-        mProgressTextColor = typedArray.getColor(R.styleable.HorizontalProgressView_progressTextColor,getResources().getColor(R.color.colorAccent));
-        mProgressTextSize = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressView_progressTextSize,getResources().getDimensionPixelSize(R.dimen.default_horizontal_text_size));
-        mTrackWidth = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressView_track_width, getResources().getDimensionPixelSize(R.dimen.default_trace_width));
-        mAnimateType = typedArray.getInt(R.styleable.HorizontalProgressView_animateType, ACCELERATE_DECELERATE_INTERPOLATOR);
-        mTrackColor = typedArray.getColor(R.styleable.HorizontalProgressView_trackColor, getResources().getColor(R.color.default_track_color));
-        textVisibility = typedArray.getBoolean(R.styleable.HorizontalProgressView_progressTextVisibility, true);
-        mProgressDuration = typedArray.getInt(R.styleable.HorizontalProgressView_progressDuration, 1200);
-        mCornerRadius = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressView_corner_radius, getResources().getDimensionPixelSize(R.dimen.default_corner_radius));
-        mTextPaddingBottomOffset = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressView_text_padding_bottom, getResources().getDimensionPixelSize(R.dimen.default_corner_radius));
-        isTextMoved = typedArray.getBoolean(R.styleable.HorizontalProgressView_textMovedEnable, true);
+        mStartProgress = typedArray.getInt(R.styleable.HorizontalProgressBar_start_progress,0);
+        mEndProgress = typedArray.getInt(R.styleable.HorizontalProgressBar_end_progress,60);
+        mStartColor = typedArray.getColor(R.styleable.HorizontalProgressBar_start_color, getResources().getColor(R.color.light_orange));
+        mEndColor = typedArray.getColor(R.styleable.HorizontalProgressBar_end_color,getResources().getColor(R.color.dark_orange));
+        trackEnabled = typedArray.getBoolean(R.styleable.HorizontalProgressBar_isTracked, false);
+        mProgressTextColor = typedArray.getColor(R.styleable.HorizontalProgressBar_progressTextColor,getResources().getColor(R.color.colorAccent));
+        mProgressTextSize = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressBar_progressTextSize,getResources().getDimensionPixelSize(R.dimen.default_horizontal_text_size));
+        mTrackWidth = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressBar_track_width, getResources().getDimensionPixelSize(R.dimen.default_trace_width));
+        mAnimateType = typedArray.getInt(R.styleable.HorizontalProgressBar_animateType, ACCELERATE_DECELERATE_INTERPOLATOR);
+        mTrackColor = typedArray.getColor(R.styleable.HorizontalProgressBar_trackColor, getResources().getColor(R.color.default_track_color));
+        textVisibility = typedArray.getBoolean(R.styleable.HorizontalProgressBar_progressTextVisibility, true);
+        mProgressDuration = typedArray.getInt(R.styleable.HorizontalProgressBar_progressDuration, 1200);
+        mCornerRadius = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressBar_corner_radius, getResources().getDimensionPixelSize(R.dimen.default_corner_radius));
+        mTextPaddingBottomOffset = typedArray.getDimensionPixelSize(R.styleable.HorizontalProgressBar_text_padding_bottom, getResources().getDimensionPixelSize(R.dimen.default_corner_radius));
+        isTextMoved = typedArray.getBoolean(R.styleable.HorizontalProgressBar_textMovedEnable, true);
         Log.e(TAG, "progressDuration: "+ mProgressDuration);
 
         typedArray.recycle();
@@ -190,8 +186,6 @@ public class HorizontalProgressView extends View {
     private void init(){
         progressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         progressPaint.setStyle(Paint.Style.FILL);
-
-
     }
 
     @Override
@@ -479,7 +473,7 @@ public class HorizontalProgressView extends View {
             public void onAnimationUpdate(ValueAnimator animation) {
                 float progress = (float) animation.getAnimatedValue("progress");
                 if(animatorUpdateListener != null){
-                    animatorUpdateListener.onHorizontalProgressUpdate(HorizontalProgressView.this,progress);
+                    animatorUpdateListener.onHorizontalProgressUpdate(HorizontalProgressBar.this,progress);
                 }
 
             }
@@ -489,14 +483,14 @@ public class HorizontalProgressView extends View {
             @Override
             public void onAnimationStart(Animator animator) {
                 if(animatorUpdateListener != null){
-                    animatorUpdateListener.onHorizontalProgressStart(HorizontalProgressView.this);
+                    animatorUpdateListener.onHorizontalProgressStart(HorizontalProgressBar.this);
                 }
             }
 
             @Override
             public void onAnimationEnd(Animator animator) {
                 if(animatorUpdateListener != null){
-                    animatorUpdateListener.onHorizontalProgressFinished(HorizontalProgressView.this);
+                    animatorUpdateListener.onHorizontalProgressFinished(HorizontalProgressBar.this);
                 }
             }
 

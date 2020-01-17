@@ -21,9 +21,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         progress_bar.setAnimateType(CircleProgressBar.ACCELERATE_DECELERATE_INTERPOLATOR)
         progress_bar.startProgressAnimation()
         button?.setOnClickListener {
-            progress_bar.setStartProgress(78f)
-            progress_bar.setEndProgress(50f)
-            progress_bar.startProgressAnimation()
+            progress_bar.setRangeAndAnimate(0f, 7f)
         }
     }
 

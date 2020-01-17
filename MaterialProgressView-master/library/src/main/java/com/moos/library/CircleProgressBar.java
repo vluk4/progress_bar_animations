@@ -221,13 +221,10 @@ public class CircleProgressBar extends View {
         progressPaint.setStrokeCap(Paint.Cap.ROUND);
         progressPaint.setStrokeWidth(mTrackWidth);
         mScaleZonePath = new Path();
-
         /**
          * if set the scale zone mode for progress view, should not let the circle be filled
          */
         drawScaleZones(isGraduated);
-
-
     }
 
     @Override
@@ -450,7 +447,19 @@ public class CircleProgressBar extends View {
         }
         this.mEndProgress = endProgress;
         refreshTheView();
+    }
 
+    public void setRangeAndAnimate(float start, float end){
+        if(start > end){
+            setStartProgress(start);
+            setEndProgress(end);
+            startProgressAnimation();
+        }
+        else{
+            setStartProgress(start);
+            setEndProgress(end);
+            startProgressAnimation();
+        }
     }
 
     /**
@@ -635,9 +644,54 @@ public class CircleProgressBar extends View {
 
             @Override
             public void onAnimationEnd(Animator animator) {
+                setProgress(mEndProgress);
                 if(updateListener != null){
                     updateListener.onCircleProgressFinished(CircleProgressBar.this);
                 }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+        progressAnimator.start();
+    }
+
+    public void startProgressAnimation(boolean reversed){
+        progressAnimator = ObjectAnimator.ofFloat(this,"progress",mEndProgress, mStartProgress);
+        Log.e(TAG, "progressDuration: "+ mProgressDuration);
+        progressAnimator.setInterpolator(mInterpolator);
+        progressAnimator.setDuration(mProgressDuration);
+        progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            @Override
+            public void onAnimationUpdate(ValueAnimator animation) {
+                float progress = (float) animation.getAnimatedValue("progress");
+                if(updateListener != null){
+                    updateListener.onCircleProgressUpdate(CircleProgressBar.this, progress);
+                }
+
+            }
+        });
+        progressAnimator.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                if(updateListener != null){
+                    updateListener.onCircleProgressStart(CircleProgressBar.this);
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                if(updateListener != null){
+                    updateListener.onCircleProgressFinished(CircleProgressBar.this);
+                }
+
             }
 
             @Override

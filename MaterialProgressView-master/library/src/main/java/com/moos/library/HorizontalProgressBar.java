@@ -443,6 +443,23 @@ public class HorizontalProgressBar extends View {
         refreshTheView();
     }
 
+    public void setRangeAndAnimate(float start, float end){
+        if(start > end){
+//            originalStartColor = mStartColor;
+//            originalEndColor = mStartColor;
+//            setEndColor(mTrackColor);
+//            setStartColor(mTrackColor);
+            setStartProgress(start);
+            setEndProgress(end);
+            startProgressAnimation();
+        }
+        else{
+            setStartProgress(start);
+            setEndProgress(end);
+            startProgressAnimation();
+        }
+    }
+
     /**
      * set the visibility for progress inner text
      * @param visibility text visible or not

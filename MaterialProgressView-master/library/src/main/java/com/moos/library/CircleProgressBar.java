@@ -67,7 +67,7 @@ public class CircleProgressBar extends View {
     /**
      * the progress of end point
      */
-    private float mEndProgress = 60;
+    private float mEndProgress = 100;
     /**
      * the color of start progress
      */
@@ -236,7 +236,6 @@ public class CircleProgressBar extends View {
 
         drawTrack(canvas);
 
-
         //mShader = new LinearGradient(mOval.left,mOval.top,mOval.right,mOval.bottom,mStartColor,mEndColor, Shader.TileMode.CLAMP);
         progressPaint.setShader(mShader);
         updateTheTrack();
@@ -248,9 +247,19 @@ public class CircleProgressBar extends View {
             initProgressDrawing(canvas, false);
 
         }
-
         drawProgressText(canvas);
+    }
 
+    /**
+     * update the oval progress track
+     */
+    private void updateTheTrack() {
+        if(mOval != null){
+            mOval = null;
+        }
+        mOval = new RectF(getPaddingLeft() + mTrackWidth, getPaddingTop() + mTrackWidth,
+                getWidth() - getPaddingRight() - mTrackWidth,
+                getHeight() - getPaddingBottom() - mTrackWidth);
 
     }
 
@@ -329,21 +338,17 @@ public class CircleProgressBar extends View {
      * @param canvas mCanvas
      */
     private void drawProgressText(Canvas canvas){
-
         if(textVisibility){
             mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mTextPaint.setStyle(Paint.Style.FILL);
             mTextPaint.setTextSize(mProgressTextSize);
             mTextPaint.setColor(mProgressTextColor);
             mTextPaint.setTextAlign(Paint.Align.CENTER);
-
             String progressText = ((int) moveProgress) + "%";
             float x = (getWidth() + getPaddingLeft() - getPaddingRight()) / 2;
             float y = (getHeight() + getPaddingTop() - getPaddingBottom() - (mTextPaint.descent() + mTextPaint.ascent())) / 2;
             canvas.drawText(progressText, x , y, mTextPaint);
-
         }
-
     }
 
     /**
@@ -440,11 +445,7 @@ public class CircleProgressBar extends View {
         refreshTheView();
     }
 
-    /**
-     * set end progress
-     * @param endProgress end progress
-     */
-    public void setEndProgress(float endProgress){
+    public void setMaxProgress(float endProgress){
         if(endProgress < 0 || endProgress > 100){
             throw new IllegalArgumentException("Illegal progress value, please change it!");
         }
@@ -452,21 +453,9 @@ public class CircleProgressBar extends View {
         refreshTheView();
     }
 
+
+    @Deprecated
     public void setRangeAndAnimate(float start, float end){
-        if(start > end){
-//            originalStartColor = mStartColor;
-//            originalEndColor = mStartColor;
-//            setEndColor(mTrackColor);
-//            setStartColor(mTrackColor);
-            setStartProgress(start);
-            setEndProgress(end);
-            startProgressAnimation();
-        }
-        else{
-            setStartProgress(start);
-            setEndProgress(end);
-            startProgressAnimation();
-        }
     }
 
     /**
@@ -626,95 +615,28 @@ public class CircleProgressBar extends View {
     /**
      * start the progress's moving
      */
+    @Deprecated
     public void startProgressAnimation(){
-        progressAnimator = ObjectAnimator.ofFloat(this,"progress",mStartProgress, mEndProgress);
+    }
+
+    public void setProgressAndAnimate(float progress){
+        progressAnimator = ObjectAnimator.ofFloat(this,"progress", progress);
         Log.e(TAG, "progressDuration: "+ mProgressDuration);
         progressAnimator.setInterpolator(mInterpolator);
-        progressAnimator.setDuration(mProgressDuration);
-        progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float progress = (float) animation.getAnimatedValue("progress");
-                if(updateListener != null){
-                    updateListener.onCircleProgressUpdate(CircleProgressBar.this, progress);
-                }
-
-            }
-        });
-        progressAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                if(updateListener != null){
-                    updateListener.onCircleProgressStart(CircleProgressBar.this);
-                }
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                if(updateListener != null){
-                    updateListener.onCircleProgressFinished(CircleProgressBar.this);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
+        setAnimationSpeedBasedOnProgress(getProgress(), progress);
         progressAnimator.start();
     }
 
-    public void startProgressAnimation(boolean reversed){
-        progressAnimator = ObjectAnimator.ofFloat(this,"progress",mEndProgress, mStartProgress);
-        Log.e(TAG, "progressDuration: "+ mProgressDuration);
-        progressAnimator.setInterpolator(mInterpolator);
-        progressAnimator.setDuration(mProgressDuration);
-        progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float progress = (float) animation.getAnimatedValue("progress");
-                if(updateListener != null){
-                    updateListener.onCircleProgressUpdate(CircleProgressBar.this, progress);
-                }
-
-            }
-        });
-        progressAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                if(updateListener != null){
-                    updateListener.onCircleProgressStart(CircleProgressBar.this);
-                }
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                if(updateListener != null){
-                    updateListener.onCircleProgressFinished(CircleProgressBar.this);
-                }
-                setProgress(mEndProgress);
-                setEndColor(originalEndColor);
-                setStartColor(originalStartColor);
-                updateTheTrack();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
-        progressAnimator.start();
+    private void setAnimationSpeedBasedOnProgress(float from, float to){
+        float positiveRange = Math.abs(from - to);
+        if(positiveRange <= 2){
+            progressAnimator.setDuration(1100);
+            return;
+        }
+        progressAnimator.setDuration(1200);
     }
+
+
 
     /**
      * stop the progress moving
@@ -732,19 +654,6 @@ public class CircleProgressBar extends View {
     private void refreshTheView() {
         invalidate();
         requestLayout();
-    }
-
-    /**
-     * update the oval progress track
-     */
-    private void updateTheTrack() {
-        if(mOval != null){
-            mOval = null;
-        }
-        mOval = new RectF(getPaddingLeft() + mTrackWidth, getPaddingTop() + mTrackWidth,
-                getWidth() - getPaddingRight() - mTrackWidth,
-                getHeight() - getPaddingBottom() - mTrackWidth);
-
     }
 
     /**

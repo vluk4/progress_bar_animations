@@ -443,21 +443,8 @@ public class HorizontalProgressBar extends View {
         refreshTheView();
     }
 
+    @Deprecated
     public void setRangeAndAnimate(float start, float end){
-        if(start > end){
-//            originalStartColor = mStartColor;
-//            originalEndColor = mStartColor;
-//            setEndColor(mTrackColor);
-//            setStartColor(mTrackColor);
-            setStartProgress(start);
-            setEndProgress(end);
-            startProgressAnimation();
-        }
-        else{
-            setStartProgress(start);
-            setEndProgress(end);
-            startProgressAnimation();
-        }
     }
 
     /**
@@ -480,48 +467,25 @@ public class HorizontalProgressBar extends View {
     /**
      * start the progress's moving
      */
+    @Deprecated
     public void startProgressAnimation(){
-        progressAnimator = ObjectAnimator.ofFloat(this,"progress",mStartProgress, mEndProgress);
+    }
+
+    public void setProgressAndAnimate(float progress){
+        progressAnimator = ObjectAnimator.ofFloat(this,"progress", progress);
         Log.e(TAG, "progressDuration: "+ mProgressDuration);
         progressAnimator.setInterpolator(mInterpolator);
-        progressAnimator.setDuration(mProgressDuration);
-        progressAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                float progress = (float) animation.getAnimatedValue("progress");
-                if(animatorUpdateListener != null){
-                    animatorUpdateListener.onHorizontalProgressUpdate(HorizontalProgressBar.this,progress);
-                }
-
-            }
-
-        });
-        progressAnimator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animator) {
-                if(animatorUpdateListener != null){
-                    animatorUpdateListener.onHorizontalProgressStart(HorizontalProgressBar.this);
-                }
-            }
-
-            @Override
-            public void onAnimationEnd(Animator animator) {
-                if(animatorUpdateListener != null){
-                    animatorUpdateListener.onHorizontalProgressFinished(HorizontalProgressBar.this);
-                }
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animator) {
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animator) {
-
-            }
-        });
+        setAnimationSpeedBasedOnProgress(getProgress(), progress);
         progressAnimator.start();
+    }
+
+    private void setAnimationSpeedBasedOnProgress(float from, float to){
+        float positiveRange = Math.abs(from - to);
+        if(positiveRange <= 2){
+            progressAnimator.setDuration(1100);
+            return;
+        }
+        progressAnimator.setDuration(1200);
     }
 
     /**

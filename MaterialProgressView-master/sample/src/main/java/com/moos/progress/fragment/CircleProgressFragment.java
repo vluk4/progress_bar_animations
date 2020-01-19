@@ -77,7 +77,7 @@ public class CircleProgressFragment extends Fragment implements SeekBar.OnSeekBa
                 break;
 
             case R.id.csb_end_progress:
-                circleProgressBar.setEndProgress(progress);
+                circleProgressBar.setMaxProgress(progress);
                 break;
 
             case R.id.csb_text_size:

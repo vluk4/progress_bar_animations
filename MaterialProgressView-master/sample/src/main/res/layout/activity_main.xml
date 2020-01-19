@@ -43,8 +43,6 @@
         app:animateType="AccelerateDecelerateInterpolator"
         app:circleBroken="true"
         app:end_color="#00EEFA"
-        app:start_progress="0"
-        app:end_progress="80"
         app:isFilled="false"
         app:isTracked="true"
         app:progressDuration="2000"

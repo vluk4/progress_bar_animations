@@ -16,6 +16,9 @@ import android.graphics.Shader;
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.annotation.Nullable;
+import androidx.core.content.res.ResourcesCompat;
+
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -271,8 +274,8 @@ public class CircleProgressBar extends View {
 
         mShader = new LinearGradient(mOval.left-200, mOval.top-200, mOval.right+20, mOval.bottom+20,
                 mStartColor, mEndColor, Shader.TileMode.CLAMP);
-        /**
-         * draw the scale zone shape
+        /*
+          draw the scale zone shape
          */
         mScaleZoneRect = new RectF(0,0, mScaleZoneWidth, mScaleZoneLength);
         mScaleZonePath.addRoundRect(mScaleZoneRect, mScaleZoneCornerRadius, mScaleZoneCornerRadius, Path.Direction.CW);
@@ -327,7 +330,7 @@ public class CircleProgressBar extends View {
      */
     private void initTrack(Canvas canvas, boolean isFilled){
         if(circleBroken){
-            canvas.drawArc(mOval, 135, 270, isFilled, progressPaint);
+            canvas.drawArc(mOval, 156, 232.5f, isFilled, progressPaint);
         }else {
             canvas.drawArc(mOval, 90, 360, isFilled, progressPaint);
         }
@@ -339,14 +342,16 @@ public class CircleProgressBar extends View {
      */
     private void drawProgressText(Canvas canvas){
         if(textVisibility){
+            Typeface customTypeface = ResourcesCompat.getFont(getContext(), R.font.maven_pro_black);
             mTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mTextPaint.setStyle(Paint.Style.FILL);
             mTextPaint.setTextSize(mProgressTextSize);
             mTextPaint.setColor(mProgressTextColor);
             mTextPaint.setTextAlign(Paint.Align.CENTER);
+            mTextPaint.setTypeface(customTypeface);
             String progressText = ((int) moveProgress) + "%";
             float x = (getWidth() + getPaddingLeft() - getPaddingRight()) / 2;
-            float y = (getHeight() + getPaddingTop() - getPaddingBottom() - (mTextPaint.descent() + mTextPaint.ascent())) / 2;
+            float y = (getHeight() + getPaddingTop() - getPaddingBottom() - (mTextPaint.descent() + mTextPaint.ascent())) / 3f;
             canvas.drawText(progressText, x , y, mTextPaint);
         }
     }
@@ -665,7 +670,7 @@ public class CircleProgressBar extends View {
 
         if(circleBroken){
             Log.e(TAG, "circleBroken>>>>>>"+"yes" );
-            canvas.drawArc(mOval, 135 + mStartProgress*2.7f, (moveProgress - mStartProgress) * 2.7f, isFilled, progressPaint);
+            canvas.drawArc(mOval, 155 + mStartProgress*2.325f, (moveProgress - mStartProgress) * 2.325f, isFilled, progressPaint);
 
         }else {
             Log.e(TAG, "circleBroken>>>>>>"+"no" );

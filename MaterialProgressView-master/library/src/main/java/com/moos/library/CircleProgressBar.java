@@ -330,7 +330,7 @@ public class CircleProgressBar extends View {
      */
     private void initTrack(Canvas canvas, boolean isFilled){
         if(circleBroken){
-            canvas.drawArc(mOval, 156, 232.5f, isFilled, progressPaint);
+            canvas.drawArc(mOval, 156, 229, isFilled, progressPaint);
         }else {
             canvas.drawArc(mOval, 90, 360, isFilled, progressPaint);
         }
@@ -670,7 +670,7 @@ public class CircleProgressBar extends View {
 
         if(circleBroken){
             Log.e(TAG, "circleBroken>>>>>>"+"yes" );
-            canvas.drawArc(mOval, 155 + mStartProgress*2.325f, (moveProgress - mStartProgress) * 2.325f, isFilled, progressPaint);
+            canvas.drawArc(mOval, 155 + mStartProgress*2.29f, (moveProgress - mStartProgress) * 2.29f, isFilled, progressPaint);
 
         }else {
             Log.e(TAG, "circleBroken>>>>>>"+"no" );

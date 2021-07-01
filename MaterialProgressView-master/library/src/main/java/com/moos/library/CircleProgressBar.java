@@ -351,7 +351,7 @@ public class CircleProgressBar extends View {
             mTextPaint.setTypeface(customTypeface);
             String progressText = ((int) moveProgress) + "%";
             float x = (getWidth() + getPaddingLeft() - getPaddingRight()) / 2;
-            float y = (getHeight() + getPaddingTop() - getPaddingBottom() - (mTextPaint.descent() + mTextPaint.ascent())) / 3f;
+            float y = (getHeight() + getPaddingTop() - getPaddingBottom() - (mTextPaint.descent() + mTextPaint.ascent())) / 2.7f;
             canvas.drawText(progressText, x , y, mTextPaint);
         }
     }
